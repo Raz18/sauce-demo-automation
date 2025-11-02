@@ -288,8 +288,6 @@ Scenario: Valid user login
 
 ---
 
----
-
 ## 📦 Installation & Setup
 
 ## Prerequisites
@@ -460,58 +458,11 @@ html = behave_html_formatter:HTMLFormatter
 
 ## 📝 Manual Test Cases
 
-In addition to automated tests, comprehensive **manual test cases** have been documented for scenarios that require human judgment and cannot be effectively automated.
+In addition to automated tests, comprehensive **manual test cases** have been documented for various testing scenarios 
 
 ### Manual Testing Documentation
 
-**File:** `Manual_Test_Cases.xlsx` (or `.docx`)
-
-The manual test cases cover:
-
-#### 1. **Visual & UI Testing**
-- Product image quality verification
-- Layout and alignment across different screen sizes
-- Color scheme consistency
-- Responsive design validation (mobile, tablet, desktop)
-
-#### 2. **Accessibility Testing**
-- Keyboard navigation (Tab, Enter, Arrow keys)
-- Screen reader compatibility (NVDA, JAWS, VoiceOver)
-- WCAG 2.1 compliance verification
-- Focus indicators visibility
-
-#### 3. **Cross-Browser Compatibility**
-- Visual comparison across Chrome, Firefox, Edge, Safari
-- Font rendering differences
-- CSS styling consistency
-- Browser-specific behavior validation
-
-#### 4. **Security Testing**
-- Session timeout verification
-- Cookie inspection (HttpOnly, Secure flags)
-- Password field security
-- Multi-tab session behavior
-
-#### 5. **Exploratory Testing**
-- Rapid clicking edge cases
-- Browser back/forward button behavior
-- Race condition scenarios
-- Network interruption handling
-
-#### 6. **Usability Testing**
-- Error message clarity
-- Form validation user experience
-- Loading states and feedback
-- Help text effectiveness
-
-### Why Manual Testing?
-
-These scenarios complement automated tests because:
-- **Visual Quality:** Requires human perception of aesthetics
-- **Accessibility:** Needs assistive technology and subjective evaluation
-- **Exploratory:** Creative testing discovers unexpected issues
-- **Security:** Manual investigation of cookies, sessions, network
-- **UX:** User experience quality is subjective
+**File:** `Manual_Test_Cases.xlsx`
 
 ### Test Case Structure
 
@@ -524,7 +475,7 @@ Each manual test case includes:
 - **Expected Results** - What should happen
 - **Actual Results** - Filled during execution
 - **Pass/Fail** - Checkbox
-- **Automation Notes** - Why manual testing is needed
+- **Automation Notes** - whether or not this scenario can be automated
 
 ---
 
@@ -575,16 +526,6 @@ pip install -r requirements.txt
 - Check window size in headless mode
 - Review screenshot captured on failure
 
-#### Slow Test Execution
-**Problem:** Tests take too long  
-**Solution:**
-```bash
-# Disable slow motion
-$env:SLOW_MO="0"; behave
-
-# Run in headless mode
-$env:HEADLESS="true"; behave
-```
 
 #### Docker Build Fails
 **Problem:** Docker image won't build  
@@ -642,7 +583,7 @@ docker run --rm \
   behave-tests
 ```
 
-#### Method 3: Using Docker Compose (Recommended)
+#### Method 3: Using Docker Compose
 ```bash
 # Build and run tests
 docker-compose up --build
@@ -663,62 +604,6 @@ docker-compose run --rm behave-tests behave features/login.feature
 ✅ **HTML Reports** - Generated with behave-html-formatter ⭐ **BONUS**  
 ✅ **Volume Mounts** - Screenshots and reports persist on host ⭐ **BONUS**  
 
-### Bonus Features Completed
-
-#### ⭐ Bonus 1: Volume Mounts for Screenshots & Reports
-**Implementation:** `docker-compose.yml` and volume mount commands
-
-```yaml
-volumes:
-  - ./screenshots:/app/screenshots  # Screenshots persist on host
-  - ./reports:/app/reports          # Reports persist on host
-```
-
-**How it works:**
-- Test execution in Docker container generates screenshots on failures
-- HTML reports are generated automatically
-- Volume mounts map container directories to your local machine
-- After container stops, files remain accessible on your host
-- View reports and screenshots directly from your local filesystem
-
-**Usage:**
-```bash
-# With Docker Compose (volumes auto-mounted)
-docker-compose up --build
-
-# With Docker run (manual volume mounting)
-docker run --rm \
-  -v "$(pwd)/screenshots:/app/screenshots" \
-  -v "$(pwd)/reports:/app/reports" \
-  behave-tests
-```
-
-**Output Locations:**
-- 📊 HTML Report: `./reports/report.html`
-- 📸 Screenshots: `./screenshots/*.png` (on failures)
-
-#### ⭐ Bonus 2: HTML Report Generation
-**Implementation:** `behave-html-formatter` package + Dockerfile CMD configuration
-
-```dockerfile
-# In Dockerfile
-CMD ["behave", "-f", "behave_html_formatter:HTMLFormatter", "-o", "reports/report.html", "-f", "pretty"]
-```
-
-**Features:**
-- Automatically generated on every Docker test run
-- Professional, formatted HTML output
-- Test execution summary (passed/failed/skipped)
-- Individual scenario results
-- Step-by-step execution details
-- Execution timestamps
-- No additional commands needed
-
-**Benefits:**
-- ✅ Share results with stakeholders
-- ✅ Archive test runs
-- ✅ Visual test execution overview
-- ✅ CI/CD integration ready  
 
 ### Output Locations
 
@@ -736,44 +621,6 @@ open ./reports/report.html
 # or
 xdg-open ./reports/report.html
 ```
-
-### Advanced Docker Usage
-
-#### Run specific scenarios
-```bash
-docker run --rm behave-tests behave features/products.feature
-```
-
-#### Run with tags
-```bash
-docker run --rm behave-tests behave --tags=@smoke
-```
-
-#### Override environment variables
-```bash
-docker run --rm -e SLOW_MO=2 behave-tests
-```
-
-### CI/CD Integration with Docker
-```yaml
-# Example GitHub Actions / GitLab CI
-- name: Run BDD Tests in Docker
-  run: |
-    docker build -t behave-tests .
-    docker run --rm \
-      -v ${{ github.workspace }}/reports:/app/reports \
-      behave-tests
-
-- name: Upload Test Reports
-  uses: actions/upload-artifact@v3
-  with:
-    name: test-reports
-    path: reports/
-```
-
----
-
----
 
 ## 🤝 Contributing & Maintenance
 
@@ -820,7 +667,7 @@ def step_new_action(context):
 
 ---
 
-## 📚 Additional Resources
+## 📚 Resources i assisted on during development
 
 ### Documentation
 - [Behave Documentation](https://behave.readthedocs.io/)
