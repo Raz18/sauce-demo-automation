@@ -299,7 +299,8 @@ Scenario: Valid user login
 
 ### 1. Clone/Navigate to Project Directory
 ```bash
-cd selenium_bdd_automation
+git clone https://github.com/Raz18/sauce-demo-automation.git
+cd sauce-demo-automation/
 ```
 
 ### 2. Create Virtual Environment (Recommended)
