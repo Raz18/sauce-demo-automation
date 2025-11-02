@@ -453,10 +453,76 @@ log_capture = false        # Show logs
 html = behave_html_formatter:HTMLFormatter
 ```
 
----
+## 🐳 Docker Deployment
 
----
+### Prerequisites
+- Docker installed on your system
+- Docker Compose (optional, but recommended)
 
+### Quick Start
+
+#### Method 1: Simple Docker Commands (As Per Requirements)
+```bash
+# Build the Docker image
+docker build -t behave-tests .
+
+# Run tests
+docker run --rm behave-tests
+```
+
+#### Method 2: With Volume Mounts (Bonus - Persist Reports/Screenshots)
+```powershell
+# PowerShell (Windows)
+docker run --rm `
+  -v "${PWD}/screenshots:/app/screenshots" `
+  -v "${PWD}/reports:/app/reports" `
+  behave-tests
+
+# Bash (Linux/Mac)
+docker run --rm \
+  -v "$(pwd)/screenshots:/app/screenshots" \
+  -v "$(pwd)/reports:/app/reports" \
+  behave-tests
+```
+
+#### Method 3: Using Docker Compose
+```bash
+# Build and run tests
+docker-compose up --build
+
+# Run without rebuilding
+docker-compose up
+
+# Run specific feature
+docker-compose run --rm behave-tests behave features/login.feature
+```
+
+### Docker Features Implemented
+
+✅ **Python base image** - Uses Python 3.11-slim  
+✅ **Chrome + ChromeDriver** - Auto-installed and configured  
+✅ **Dependencies** - Installs from requirements.txt  
+✅ **Headless by default** - HEADLESS=true environment variable  
+✅ **HTML Reports** - Generated with behave-html-formatter ⭐ **BONUS**  
+✅ **Volume Mounts** - Screenshots and reports persist on host ⭐ **BONUS**  
+
+
+### Output Locations
+
+After running Docker tests:
+- **HTML Report**: `./reports/report.html`
+- **Screenshots**: `./screenshots/` (on test failures)
+
+### View HTML Report
+```powershell
+# Windows
+Invoke-Item ./reports/report.html
+
+# Linux/Mac
+open ./reports/report.html
+# or
+xdg-open ./reports/report.html
+```
 ## 📝 Manual Test Cases
 
 In addition to automated tests, comprehensive **manual test cases** have been documented for various testing scenarios 
@@ -551,77 +617,6 @@ behave --format json -o results.json
 ```
 
 ---
-
-## 🐳 Docker Deployment
-
-### Prerequisites
-- Docker installed on your system
-- Docker Compose (optional, but recommended)
-
-### Quick Start
-
-#### Method 1: Simple Docker Commands (As Per Requirements)
-```bash
-# Build the Docker image
-docker build -t behave-tests .
-
-# Run tests
-docker run --rm behave-tests
-```
-
-#### Method 2: With Volume Mounts (Bonus - Persist Reports/Screenshots)
-```powershell
-# PowerShell (Windows)
-docker run --rm `
-  -v "${PWD}/screenshots:/app/screenshots" `
-  -v "${PWD}/reports:/app/reports" `
-  behave-tests
-
-# Bash (Linux/Mac)
-docker run --rm \
-  -v "$(pwd)/screenshots:/app/screenshots" \
-  -v "$(pwd)/reports:/app/reports" \
-  behave-tests
-```
-
-#### Method 3: Using Docker Compose
-```bash
-# Build and run tests
-docker-compose up --build
-
-# Run without rebuilding
-docker-compose up
-
-# Run specific feature
-docker-compose run --rm behave-tests behave features/login.feature
-```
-
-### Docker Features Implemented
-
-✅ **Python base image** - Uses Python 3.11-slim  
-✅ **Chrome + ChromeDriver** - Auto-installed and configured  
-✅ **Dependencies** - Installs from requirements.txt  
-✅ **Headless by default** - HEADLESS=true environment variable  
-✅ **HTML Reports** - Generated with behave-html-formatter ⭐ **BONUS**  
-✅ **Volume Mounts** - Screenshots and reports persist on host ⭐ **BONUS**  
-
-
-### Output Locations
-
-After running Docker tests:
-- **HTML Report**: `./reports/report.html`
-- **Screenshots**: `./screenshots/` (on test failures)
-
-### View HTML Report
-```powershell
-# Windows
-Invoke-Item ./reports/report.html
-
-# Linux/Mac
-open ./reports/report.html
-# or
-xdg-open ./reports/report.html
-```
 
 ## 🤝 Contributing & Maintenance
 
