@@ -1,0 +1,27 @@
+{
+  "valid_users": [
+    {
+      "username": "standard_user",
+      "password": "secret_sauce",
+      "description": "Standard user with full access"
+    },
+    {
+      "username": "performance_glitch_user",
+      "password": "secret_sauce",
+      "description": "User with performance issues"
+    }
+  ],
+  "invalid_users": [
+    {
+      "username": "invalid_user",
+      "password": "wrong_password",
+      "description": "Non-existent user"
+    },
+   
+    {
+      "username": "locked_out_user",
+      "password": "secret_sauce",
+      "description": "Locked out user"
+    }
+  ]
+}

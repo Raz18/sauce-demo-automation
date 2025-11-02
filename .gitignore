@@ -1,0 +1,28 @@
+# Python cache
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+.__init__.*
+
+# Virtual environment
+venv/
+env/
+ENV/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# Test artifacts
+screenshots/
+*.log
+*.html
+
+# OS
+.DS_Store
+Thumbs.db

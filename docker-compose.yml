@@ -1,0 +1,15 @@
+version: '3.8'
+
+services:
+  behave-tests:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: selenium-bdd-tests
+    environment:
+      - HEADLESS=true
+      - BROWSER=chrome
+    volumes:
+      # Mount screenshots and reports to host for persistence
+      - ./screenshots:/app/screenshots
+      - ./reports:/app/reports
