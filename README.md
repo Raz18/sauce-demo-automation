@@ -206,6 +206,7 @@ selenium_bdd_automation/
 ├── behave.ini                         # Behave configuration
 ├── requirements.txt                   # Python dependencies
 ├── .gitignore                         # Git exclusions
+├── manual_test_cases.xlsx            # manual test cases file according to format
 └── README.md                          # Project documentation
 ```
 
