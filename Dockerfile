@@ -36,6 +36,8 @@ RUN apt-get update && apt-get install -y \
     libxkbcommon0 \
     libxrandr2 \
     xdg-utils \
+    libu2f-udev \
+    libvulkan1 \
     # Add Google Chrome repository and install Chrome
     && wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add - \
     && echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list \
@@ -60,8 +62,9 @@ COPY . .
 # Create directories for screenshots and reports
 RUN mkdir -p screenshots reports
 
-# Set Chrome binary location
-ENV CHROME_BIN=/usr/bin/google-chrome
+# Set Chrome binary location and add to PATH
+ENV CHROME_BIN=/usr/bin/google-chrome \
+    PATH="/usr/bin:${PATH}"
 
 # Default command: Run behave tests headless with HTML report
-CMD ["behave", "-f", "behave_html_formatter", "-o", "reports/report.html", "-f", "pretty"]
+CMD ["behave", "-f", "behave_html_formatter:HTMLFormatter", "-o", "reports/report.html", "-f", "pretty"]
