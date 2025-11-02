@@ -28,18 +28,11 @@ class DriverFactory:
             options = Options()
             if headless:
                 options.add_argument('--headless=new')
-          # Essential arguments for Linux environments
+            
+            # Essential arguments for Linux environments
             options.add_argument('--no-sandbox')  # Required for Docker/CI environments
             options.add_argument('--disable-dev-shm-usage')  # Overcome limited resource problems
             options.add_argument('--disable-gpu')  # Disable GPU hardware acceleration
-            options.add_argument('--disable-software-rasterizer')  # Disable software rasterizer
-            options.add_argument('--window-size=1920,1080')
-            
-            # Fix for "DevToolsActivePort file doesn't exist" error on Linux
-            options.add_argument('--remote-debugging-port=9222')  # Enable remote debugging
-            options.add_argument('--disable-extensions')  # Disable extensions
-            options.add_argument('--disable-setuid-sandbox')  # Additional sandbox bypass for Linux
-            
             # Logging suppression
             options.add_argument('--log-level=3')  # Suppress console logs
             options.add_argument('--disable-logging')  # Disable Chrome logging
